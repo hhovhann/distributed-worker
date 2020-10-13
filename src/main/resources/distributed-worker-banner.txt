@@ -1,0 +1,5 @@
+${AnsiBackground.WHITE}${AnsiColor.RED}
++-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+  +-+ +-+ +-+ +-+ +-+ +-+
+|D| |I| |S| |T| |R| |I| |B| |U| |T| |E| |D|  |W| |O| |R| |K| |E| |R|
++-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+ +-+  +-+ +-+ +-+ +-+ +-+ +-+
+Spring Boot ${spring-boot.version}
