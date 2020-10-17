@@ -5,6 +5,7 @@ import com.hhovhann.distributedworker.entiry.Status;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.List;
 @Slf4j
 @SpringBootTest
 class JobRepositoryTest {
+    @Value("${worker.in.memory.data.urls}")
+    private String[] urls;
 
     @Autowired
     private JobRepository jobRepository;
@@ -20,18 +23,18 @@ class JobRepositoryTest {
     public void init() {
         log.info("Initialization of all job entities.");
         jobRepository.saveAll(List.of(
-                Job.builder().id(1L).url("https://proxify.io").status(Status.DONE).httpCode(200).build(),
-                Job.builder().id(2L).url("https://reddit.com").status(Status.NEW).httpCode(200).build(),
-                Job.builder().id(3L).url("https://start.spring.io").status(Status.NEW).httpCode(200).build(),
-                Job.builder().id(4L).url("https://proxify.io").status(Status.NEW).httpCode(200).build(),
-                Job.builder().id(5L).url("https://wrong.io").status(Status.ERROR).httpCode(200).build()
+                Job.builder().id(1L).url(urls[0]).status(Status.DONE).httpCode(200).build(),
+                Job.builder().id(2L).url(urls[1]).status(Status.NEW).httpCode(200).build(),
+                Job.builder().id(3L).url(urls[2]).status(Status.NEW).httpCode(200).build(),
+                Job.builder().id(4L).url(urls[3]).status(Status.NEW).httpCode(200).build(),
+                Job.builder().id(5L).url(urls[4]).status(Status.ERROR).httpCode(200).build()
         ));
     }
 
     @AfterEach
     public void destroy() {
         log.info("Clean Up database before each test method will be executed.");
-        jobRepository.deleteAll();
+//        jobRepository.deleteAll();
     }
 
     @Test

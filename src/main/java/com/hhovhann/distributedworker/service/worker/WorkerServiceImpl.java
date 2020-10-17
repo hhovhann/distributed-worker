@@ -14,6 +14,9 @@ public class WorkerServiceImpl implements WorkerService {
     @Value("${worker.in.memory.data.enabled}")
     private boolean inMemoryEnabled;
 
+    @Value("${worker.in.memory.data.urls}")
+    private String[] urls;
+
     private final JobRepository jobRepository;
     private final JobService jobService;
 
@@ -24,15 +27,9 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public void process() {
-        // The application seed some data into database (2 row data what we have), because will use h2 in memory database
+        // The application seeds some data into database (2 row data what we have), because will use h2 in memory database
         if (inMemoryEnabled) {
-            jobRepository.saveAll(List.of(
-                    Job.builder().id(1L).url("https://proxify.io").status(Status.DONE).httpCode(200).build(),
-                    Job.builder().id(2L).url("https://reddit.com").status(Status.NEW).httpCode(200).build(),
-                    Job.builder().id(3L).url("https://start.spring.io").status(Status.NEW).httpCode(200).build(),
-                    Job.builder().id(4L).url("https://proxify.io").status(Status.NEW).httpCode(200).build(),
-                    Job.builder().id(5L).url("http://wrong.io").status(Status.ERROR).httpCode(200).build()
-            ));
+            jobRepository.saveAll(List.of(Job.builder().id(1L).url(urls[0]).status(Status.DONE).httpCode(200).build(), Job.builder().id(2L).url(urls[1]).status(Status.NEW).httpCode(200).build(), Job.builder().id(3L).url(urls[2]).status(Status.NEW).httpCode(200).build(), Job.builder().id(4L).url(urls[3]).status(Status.NEW).httpCode(200).build(), Job.builder().id(5L).url(urls[4]).status(Status.ERROR).httpCode(200).build()));
         }
         // The application find all urls from database
         List<Job> entities = jobRepository.findAll();

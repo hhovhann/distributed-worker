@@ -20,12 +20,14 @@ class WorkerServiceImplTest {
 
     @Value("${worker.in.memory.data.enabled}")
     private boolean inMemoryEnabled;
+    @Value("${worker.in.memory.data.urls}")
+    private String[] urls;
 
     @BeforeEach
     public void setUp() {
         List<Job> jobList = List.of(
-                Job.builder().id(1L).url("https://proxify.io").status(Status.DONE).httpCode(200).build(),
-                Job.builder().id(2L).url("https://reddit.com").status(Status.NEW).httpCode(200).build()
+                Job.builder().id(1L).url(urls[0]).status(Status.DONE).httpCode(200).build(),
+                Job.builder().id(2L).url(urls[1]).status(Status.NEW).httpCode(200).build()
         );
         Mockito.when(jobRepository.saveAll(jobList)).thenReturn(jobList);
         Mockito.when(jobRepository.findAll()).thenReturn(jobList);

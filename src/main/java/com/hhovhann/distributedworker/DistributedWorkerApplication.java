@@ -8,6 +8,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.time.Duration;
+import java.time.Instant;
+
 @Slf4j
 @SpringBootApplication
 public class DistributedWorkerApplication implements CommandLineRunner {
@@ -21,8 +24,9 @@ public class DistributedWorkerApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        log.info("Start Worker processing with argument");
+        Instant start = Instant.now();
+        log.info("Start Application processing: {}", start);
         workerService.process();
-        log.info("Finished Worker processing successfully finished:");
+        log.info("Application processing time takes {} seconds", Duration.between(start, Instant.now()));
     }
 }
